@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OikoHire Sign-Up Flow Mock-up</title>
+  <style>
+    :root { --blue:#2563eb; --ink:#171a1f; --muted:#565d6d; --border:#dee1e6; --bg:#f7f8fa; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:var(--ink); font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    button,input { font:inherit; }
+    a { color:var(--blue); }
+    .page { min-height:100vh; padding:32px 16px; }
+    .card { max-width:720px; margin:0 auto; padding:34px 40px; background:white; border:1px solid #e5e7eb; border-radius:26px; box-shadow:0 10px 30px rgba(23,26,31,.06); }
+    .logo { text-align:center; font-size:25px; font-weight:800; letter-spacing:-.04em; }
+    .logo span { color:var(--blue); }
+    header { text-align:center; margin:18px 0 28px; }
+    .eyebrow { color:var(--blue); text-transform:uppercase; letter-spacing:.18em; font-size:11px; font-weight:800; }
+    h1 { margin:7px 0 0; font-size:32px; line-height:1.1; }
+    header p { max-width:550px; margin:12px auto 0; color:var(--muted); font-size:14px; line-height:1.6; }
+    fieldset { border:0; padding:0; margin:0 0 28px; }
+    legend { margin-bottom:12px; font-size:14px; font-weight:750; }
+    .roles { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+    .role { padding:12px; border:2px solid var(--border); border-radius:12px; background:white; font-weight:700; cursor:pointer; }
+    .role.selected { border-color:var(--blue); color:var(--blue); background:#eff6ff; }
+    .methods { display:grid; gap:12px; }
+    .method { width:100%; display:grid; grid-template-columns:32px 1fr 22px; gap:12px; align-items:start; padding:16px; text-align:left; border:2px solid var(--border); border-radius:18px; background:white; cursor:pointer; }
+    .method:hover { border-color:#93b4f7; background:#fafcff; }
+    .method.selected { border-color:var(--blue); background:#f4f8ff; }
+    .icon { width:28px; height:28px; border-radius:9px; display:grid; place-items:center; background:#eff6ff; color:var(--blue); font-weight:900; }
+    .method-title { font-size:14px; font-weight:800; }
+    .badge { margin-left:7px; display:inline-block; padding:3px 7px; border-radius:999px; background:#dcfce7; color:#166534; font-size:10px; vertical-align:1px; }
+    .summary { margin-top:5px; color:var(--muted); font-size:13px; }
+    .data { display:inline-block; margin-top:9px; padding:5px 9px; border-radius:999px; background:#f1f3f5; color:#424955; font-size:11px; font-weight:650; }
+    .radio { width:19px; height:19px; margin-top:2px; border:2px solid #aeb4bf; border-radius:50%; display:grid; place-items:center; }
+    .selected .radio { border-color:var(--blue); }
+    .selected .radio::after { content:""; width:9px; height:9px; border-radius:50%; background:var(--blue); }
+    .detail { margin-top:20px; padding:20px; border:1px solid #dce6f8; border-radius:18px; background:#fbfdff; }
+    .detail h2 { margin:0; font-size:14px; }
+    .detail > p { color:var(--muted); font-size:13px; line-height:1.65; }
+    ol { margin:13px 0 18px; padding:0; list-style:none; counter-reset:step; display:grid; gap:9px; }
+    li { display:flex; gap:10px; color:#424955; font-size:13px; }
+    li::before { counter-increment:step; content:counter(step); width:20px; height:20px; flex:0 0 20px; display:grid; place-items:center; border-radius:50%; background:#dbeafe; color:#1d4ed8; font-size:10px; font-weight:800; }
+    .fields { display:grid; gap:14px; margin-bottom:18px; }
+    label.field span { display:block; margin-bottom:6px; font-size:13px; font-weight:700; }
+    input[type=email],input[type=password],input[type=tel] { width:100%; padding:11px 12px; border:1px solid #cfd4dc; border-radius:9px; outline:none; background:white; }
+    input:focus { border-color:var(--blue); box-shadow:0 0 0 3px rgba(37,99,235,.12); }
+    .terms { display:flex; align-items:flex-start; gap:10px; color:var(--muted); font-size:13px; line-height:1.55; }
+    .terms input { margin-top:3px; }
+    .continue { width:100%; margin-top:18px; padding:12px 14px; border:0; border-radius:9px; background:var(--blue); color:white; font-weight:800; cursor:pointer; }
+    .continue:disabled { opacity:.48; cursor:not-allowed; }
+    .helper { margin:7px 0 0; color:#6b7280; text-align:center; font-size:11px; }
+    .empty { margin-top:18px; padding:14px; border:1px dashed #b8c7e6; border-radius:12px; background:#f8fbff; color:var(--muted); text-align:center; font-size:13px; }
+    footer { margin-top:26px; text-align:center; color:var(--muted); font-size:13px; }
+    @media (max-width:640px) { .card { padding:26px 18px; } h1 { font-size:27px; } .roles { gap:7px; } .role { padding:11px 5px; font-size:12px; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="card">
+      <div class="logo">Oiko<span>Hire</span></div>
+      <header>
+        <div class="eyebrow">Account setup</div>
+        <h1>Create your account</h1>
+        <p>Choose your role, then select the sign-up method that works best for you. You will see exactly what each method shares before continuing.</p>
+      </header>
+
+      <fieldset>
+        <legend>1. I am joining as a</legend>
+        <div class="roles" id="roles">
+          <button class="role selected" data-role="Candidate">Candidate</button>
+          <button class="role" data-role="Recruiter">Recruiter</button>
+          <button class="role" data-role="Company">Company</button>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>2. Choose how to create your account</legend>
+        <div class="methods" id="methods">
+          <button class="method" data-method="google">
+            <span class="icon">G</span>
+            <span><span class="method-title">Continue with Google <span class="badge">Recommended</span></span><span class="summary">Fastest option. No new password to remember.</span><span class="data">Shares: name, email, profile image</span></span>
+            <span class="radio"></span>
+          </button>
+          <button class="method" data-method="linkedin">
+            <span class="icon">in</span>
+            <span><span class="method-title">Continue with LinkedIn</span><span class="summary">Use your professional identity to create the account.</span><span class="data">Standard sign-in: name, email, profile image</span></span>
+            <span class="radio"></span>
+          </button>
+          <button class="method" data-method="email">
+            <span class="icon">@</span>
+            <span><span class="method-title">Sign up with email</span><span class="summary">Create an OikoHire password and verify your email.</span><span class="data">Provides: email address and password</span></span>
+            <span class="radio"></span>
+          </button>
+          <button class="method" data-method="phone">
+            <span class="icon">#</span>
+            <span><span class="method-title">Sign up with phone</span><span class="summary">Verify a mobile number with a one-time code.</span><span class="data">Provides: mobile number</span></span>
+            <span class="radio"></span>
+          </button>
+        </div>
+      </fieldset>
+
+      <div id="detail" class="empty">Select a sign-up method to see what information it uses and what happens next.</div>
+      <footer>Already have an account? <a href="#">Log in</a></footer>
+    </section>
+  </main>
+
+<script>
+  const methodCopy = {
+    google: {
+      title: "Continue with Google",
+      detail: "Google opens a secure sign-in window. After you choose an account and approve the request, OikoHire receives your basic identity information. OikoHire never receives your Google password, contacts, files, or permission to post.",
+      steps: ["Choose a Google account.", "Review the name, email, and profile-image permission request.", "Return to OikoHire and complete your profile."],
+      action: "Continue with Google"
+    },
+    linkedin: {
+      title: "Continue with LinkedIn",
+      detail: "LinkedIn opens a secure authorization window. Standard LinkedIn OpenID Connect sign-in provides basic identity information only. It does not automatically import a complete resume or employment history unless OikoHire has separately approved LinkedIn API access for those fields.",
+      steps: ["Sign in to LinkedIn and review the requested information.", "Authorize LinkedIn to return your basic identity to OikoHire.", "Return to OikoHire and review or add your career information."],
+      action: "Continue with LinkedIn"
+    },
+    email: {
+      title: "Sign up with email",
+      detail: "Enter your email address and create an OikoHire password. OikoHire then sends a verification message to confirm that the address belongs to you.",
+      steps: ["Enter your email address and create a password.", "Open the verification message from OikoHire.", "Verify the address and continue to profile setup."],
+      action: "Create account and verify email"
+    },
+    phone: {
+      title: "Sign up with phone",
+      detail: "Enter a mobile number that can receive text messages. OikoHire sends a one-time verification code; no password is created during this step.",
+      steps: ["Enter your mobile number.", "Receive a one-time verification code by text message.", "Enter the code and continue to profile setup."],
+      action: "Send verification code"
+    }
+  };
+
+  let currentRole = "Candidate";
+  let currentMethod = null;
+
+  document.querySelectorAll(".role").forEach((button) => {
+    button.addEventListener("click", () => {
+      document.querySelectorAll(".role").forEach((item) => item.classList.remove("selected"));
+      button.classList.add("selected");
+      currentRole = button.dataset.role;
+      if (currentMethod) renderDetail();
+    });
+  });
+
+  document.querySelectorAll(".method").forEach((button) => {
+    button.addEventListener("click", () => {
+      document.querySelectorAll(".method").forEach((item) => item.classList.remove("selected"));
+      button.classList.add("selected");
+      currentMethod = button.dataset.method;
+      renderDetail();
+    });
+  });
+
+  function renderDetail() {
+    const copy = methodCopy[currentMethod];
+    const emailLabel = currentRole === "Candidate" ? "Email address" : "Work email";
+    const fieldHtml = currentMethod === "email"
+      ? `<div class="fields"><label class="field"><span>${emailLabel}</span><input type="email" placeholder="${currentRole === "Candidate" ? "you@example.com" : "name@company.com"}"></label><label class="field"><span>Password</span><input type="password" placeholder="At least 8 characters"></label></div>`
+      : currentMethod === "phone"
+        ? `<div class="fields"><label class="field"><span>Mobile number</span><input type="tel" placeholder="+81 90 1234 5678"></label></div>`
+        : "";
+
+    document.getElementById("detail").className = "detail";
+    document.getElementById("detail").innerHTML = `
+      <h2>What happens when you choose ${copy.title.replace("Continue with ", "").replace("Sign up with ", "")}</h2>
+      <p>${copy.detail}</p>
+      <ol>${copy.steps.map((step) => `<li>${step}</li>`).join("")}</ol>
+      ${fieldHtml}
+      <label class="terms"><input id="terms" type="checkbox"><span>I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>, and consent to OikoHire processing my profile and career information for recruiting, matching, hiring, and related career services.</span></label>
+      <button class="continue" id="continue" disabled>${copy.action}</button>
+      <p class="helper" id="helper">Accept the terms above to continue.</p>`;
+
+    const terms = document.getElementById("terms");
+    const continueButton = document.getElementById("continue");
+    const helper = document.getElementById("helper");
+    terms.addEventListener("change", () => {
+      continueButton.disabled = !terms.checked;
+      helper.hidden = terms.checked;
+    });
+  }
+</script>
+</body>
+</html>
